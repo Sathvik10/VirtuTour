@@ -6,6 +6,7 @@ import { Stack } from "expo-router";
 import Map from '../components/map/map.js'
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheet from '../components/common/BottomSheets/BottomSheet.tsx';
+import Button from '../components/common/button/button.tsx';
 
 export default function Home() {
   const mapRef = useRef();
@@ -20,6 +21,7 @@ export default function Home() {
           }}
         />
          <Map mapRef={mapRef}/>
+          <Button text="Start Tour" onPress={() => console.log('Start tour button')} />
           <BottomSheet />
       </SafeAreaView>
     </GestureHandlerRootView>
