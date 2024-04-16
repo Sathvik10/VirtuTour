@@ -1,5 +1,6 @@
 const initialState = {
     routeObj: null,
+    placeObj:null,
     wayPoints: [],
     mapRef : null,
     currentLocation: {
@@ -20,7 +21,14 @@ const mapReducer = (state = initialState, action) =>{
             console.log("Action Type: "+action.type)
             return {
             ...state,
+            
             routeObj: action.routeObj,
+        }
+        case 'SET_PLACE':
+            console.log("Action Type: "+action.type)
+            return {
+            ...state,
+            placeObj: action.placeObj
         }
         case 'SET_WAYPOINTS':
             console.log("Action Type: "+action.type, " wayPoints: "+ action.wayPoints)

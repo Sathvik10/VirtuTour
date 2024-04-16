@@ -1,9 +1,21 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import {connect} from 'react-redux';
+import { setContentType } from '../../../context/actions/bottomSheetActions';
+import { setPlace } from '../../../context/actions/mapActions';
+import {BOTTOM_SHEET_PLACE_DETAIL } from '../../../context/constants';
 
+const TourPreviewContent = ({route, setContentType, setPlace }) => {
 
-const TourPreviewContent = ({route}) => {
+  const handleLinkClick = (place:any) => {
+      console.log(`Setting ${place.description}`);
+      setPlace({place});
+      setContentType({
+          contentType: BOTTOM_SHEET_PLACE_DETAIL
+      });
+      
+  };
+
   return (
     <View style={styles.container}>
         <View style={styles.buttonsContainer}>
@@ -21,9 +33,9 @@ const TourPreviewContent = ({route}) => {
       </View>
       <ScrollView style={styles.routeSteps}>
         {route.route.map((place, index) => (
-          <View key={place.name} style={styles.step}>
+          <TouchableOpacity key={place.name} style={styles.step} onPress={() => handleLinkClick(place)}>
             <Text style={styles.stepText}>{index + 1}. {place.name}</Text>
-          </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>
@@ -32,9 +44,14 @@ const TourPreviewContent = ({route}) => {
 
 const mapStateToProps = (state)=>{
     return {
-        route: state.map.routeObj,
+        route: state.map.routeObj
     }   
   }
+
+const mapDispatchToProps = {
+    setContentType,
+    setPlace,
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -92,4 +109,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps, null)(TourPreviewContent);
+export default connect(mapStateToProps, mapDispatchToProps)(TourPreviewContent);

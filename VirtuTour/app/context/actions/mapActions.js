@@ -8,6 +8,11 @@ export const setRoute = ({route}) =>({
     routeObj: route
 });
 
+export const setPlace = ({place}) =>({
+    type: 'SET_PLACE',
+    placeObj: place
+});
+
 export const setWayPoints = (wayPoints) =>({
     type: 'SET_WAYPOINTS',
     wayPoints

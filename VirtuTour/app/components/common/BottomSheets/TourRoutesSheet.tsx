@@ -2,14 +2,15 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { View, Text, StyleSheet, useWindowDimensions, SafeAreaView } from 'react-native';
 import BottomSheet, { BottomSheetView, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import { setTourType } from '../../../context/actions/buttonActions';
-import { setRoute } from '../../../context/actions/mapActions';
+import { setRoute, setPlace } from '../../../context/actions/mapActions';
 import {connect} from 'react-redux';
-import {BOTTOM_SHEET_TOUR_LIST, BOTTOM_SHEET_TOUR_PREVIEW, GUIDE_TOUR_TYPE } from '../../../context/constants';
+import {BOTTOM_SHEET_TOUR_LIST, BOTTOM_SHEET_TOUR_PREVIEW, BOTTOM_SHEET_PLACE_DETAIL, GUIDE_TOUR_TYPE } from '../../../context/constants';
 import TourPreviewContent from './TourPreviewContent';
 import RoutesAndToggle from './RoutesAndToggle';
+import PlaceDetail from './PlaceDetail';
 import { setContentType } from '../../../context/actions/bottomSheetActions';
 
-const TourRoutesSheet = ({setTourType, mapRef, wayPoints, setRoute, route,setContentType, content}) => {
+const TourRoutesSheet = ({setTourType, mapRef, wayPoints, setRoute, route, setPlace, place, setContentType, content}) => {
 
   const { width } = useWindowDimensions();
   const bottomSheetRef = useRef(null);
@@ -26,15 +27,24 @@ const TourRoutesSheet = ({setTourType, mapRef, wayPoints, setRoute, route,setCon
             bottomSheetRef.current?.snapToIndex(1)
             setRoute({route: null});
             break;
-          case BOTTOM_SHEET_TOUR_LIST: 
+        case BOTTOM_SHEET_TOUR_LIST: 
             setContentType({
               contentType: null
             });
             setTourType({tourOption: null});
             setRoute({route: null});
             break;
+        case BOTTOM_SHEET_PLACE_DETAIL:
+            setContentType({
+              contentType: 2
+            });
+            setTourType({tourOption: null});
+            setRoute({route: null});
+            setPlace({place: null});
+            break;
         default:
           setRoute({route: null});
+          setPlace({place: null});
           setTourType({tourOption: null});
       }
     }
@@ -82,6 +92,9 @@ const TourRoutesSheet = ({setTourType, mapRef, wayPoints, setRoute, route,setCon
               {content == BOTTOM_SHEET_TOUR_LIST &&(
                 <RoutesAndToggle bottomSheetRef = {bottomSheetRef}/>
               )}
+              {content == BOTTOM_SHEET_PLACE_DETAIL && place && (
+                <PlaceDetail/>
+              )}
           </BottomSheetView>
         </BottomSheet>
   );
@@ -91,12 +104,14 @@ const TourRoutesSheet = ({setTourType, mapRef, wayPoints, setRoute, route,setCon
 const mapDispatchToProps = {
   setTourType,
   setRoute,
+  setPlace,
   setContentType
 };
 
 const mapStateToProps = (state)=>({
   content: state.bottomSheet.contentType,
   route: state.map.routeObj,
+  place: state.map.placeObj,
   mapRef: state.map.mapRef,
   wayPoints: state.map.wayPoints,
 })
