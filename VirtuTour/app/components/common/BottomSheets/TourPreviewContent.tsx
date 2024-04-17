@@ -8,11 +8,11 @@ import {BOTTOM_SHEET_PLACE_DETAIL } from '../../../context/constants';
 const TourPreviewContent = ({route, setContentType, setPlace }) => {
 
   const handleLinkClick = (place:any) => {
-      console.log(`Setting ${place.description}`);
-      setPlace({place});
-      setContentType({
-          contentType: BOTTOM_SHEET_PLACE_DETAIL
-      });
+      // console.log(`Setting ${place.description}`);
+      // setPlace({place});
+      // setContentType({
+      //     contentType: BOTTOM_SHEET_PLACE_DETAIL
+      // });
       
   };
 

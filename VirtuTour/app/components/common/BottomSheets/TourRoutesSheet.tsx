@@ -9,12 +9,85 @@ import TourPreviewContent from './TourPreviewContent';
 import RoutesAndToggle from './RoutesAndToggle';
 import PlaceDetail from './PlaceDetail';
 import { setContentType } from '../../../context/actions/bottomSheetActions';
+import {SterlingCEvansLibrary,
+  BrightBuilding,
+  CenturyTree,
+  RudderComplex,
+  AggiePark,
+  KyleField,
+  MemorialStudentCenter,
+  SimpsonDrillField,
+  ZachryBuilding,
+  HaynesEngineeringBuilding
+} from '../../../constants/map/places.js'
 
 const TourRoutesSheet = ({setTourType, mapRef, wayPoints, setRoute, route, setPlace, place, setContentType, content}) => {
 
   const { width } = useWindowDimensions();
   const bottomSheetRef = useRef(null);
   const snapPoints = useMemo(() => ['25%','50%','70%'], []);
+
+  const current_location1: { lat: number; lon: number } = { lat: 30.613412596419227, lon: -96.33994268357311 };
+  const places = {
+    SterlingCEvansLibrary,
+    BrightBuilding,
+    CenturyTree,
+    RudderComplex,
+    AggiePark,
+    KyleField,
+    MemorialStudentCenter,
+    SimpsonDrillField,
+    ZachryBuilding,
+    HaynesEngineeringBuilding
+  };
+
+  // Function to calculate distance between two points
+  const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+    const R = 6371; // Radius of the earth in km
+    const dLat = deg2rad(lat2 - lat1); // deg2rad below
+    const dLon = deg2rad(lon2 - lon1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const d = R * c; // Distance in km
+    return d;
+  };
+
+  const deg2rad = (deg: number) => {
+    return deg * (Math.PI / 180);
+  };
+
+  // Function to find the closest place within 50 meters
+  const findClosestPlace = () => {
+    let closestPlace = null;
+    let minDistance = Infinity;
+
+    Object.keys(places).forEach((key) => {
+      const place1 = places[key];
+      const distance = calculateDistance(current_location1.lat, current_location1.lon, place1.latitude, place1.longitude);
+      if (distance < minDistance && distance <= 0.005) { // 0.005 km = 5 meters
+        closestPlace = place1;
+        minDistance = distance;
+      }
+    });
+
+    return closestPlace;
+  };
+
+  place = findClosestPlace();
+
+  useEffect(() => {
+    if (route && content === BOTTOM_SHEET_TOUR_PREVIEW) {
+      console.log("Closest place:", place.name);
+      setPlace({place});
+      console.log("Place set to:", place.name);
+      setContentType({
+        contentType: BOTTOM_SHEET_PLACE_DETAIL
+      });
+    }
+  }, [route, content]);
   
   const handleSheetChanges = useCallback((index: number) => {
     const focused = index !== -1;

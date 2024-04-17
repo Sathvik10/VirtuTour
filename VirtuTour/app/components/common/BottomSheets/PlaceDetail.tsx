@@ -4,6 +4,11 @@ import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 
 const PlaceDetail = ({ place }) => {
 
+  if (!place || !place.name || !place.description) {
+    console.log("Nothing here :(");
+    return null; // or render a fallback UI
+  }
+
   console.log("Welcome to place page");
   
   return (
