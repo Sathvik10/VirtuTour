@@ -3,7 +3,8 @@ const SterlingCEvansLibrary = {
     latitude: 30.61708581996873, 
     longitude: -96.33897274238043,
     track : 'https://sample-music.netlify.app/Faded.mp3',
-    description: 'Welcome to SterlingCEvansLibrary!'
+    description: 'Welcome to SterlingCEvansLibrary!',
+    image: require('../images/sterlingCEvansLibrary.jpg')
 }
 
 const BrightBuilding = {
@@ -11,7 +12,8 @@ const BrightBuilding = {
     latitude: 30.619065771971126, 
     longitude: -96.33880530758847,
     track : 'https://sample-music.netlify.app/Bad%20Liar.mp3',
-    description: 'Welcome to BrightBuilding!'
+    description: 'Welcome to BrightBuilding!',
+    image: require('../images/sterlingCEvansLibrary.jpg')
 }
 
 const CenturyTree = {
@@ -19,7 +21,8 @@ const CenturyTree = {
     latitude: 30.615992293486226, 
     longitude: -96.34136807625028,
     track : 'https://sample-music.netlify.app/Bad%20Liar.mp3',
-    description: 'Welcome to CenturyTree!'
+    description: 'Welcome to CenturyTree! Welcome to CenturyTree! Welcome to CenturyTree! Welcome to CenturyTree! Welcome to CenturyTree!',
+    image: require('../images/sterlingCEvansLibrary.jpg')
 }
 
 const RudderComplex = {
@@ -27,7 +30,8 @@ const RudderComplex = {
     latitude: 30.613412596419227, 
     longitude: -96.33994268357311,
     track : 'https://sample-music.netlify.app/Bad%20Liar.mp3',
-    description: 'Welcome to RudderComplex!'
+    description: 'Welcome to RudderComplex!',
+    image: require('../images/sterlingCEvansLibrary.jpg')
 }
 
 const AggiePark = {
@@ -35,7 +39,8 @@ const AggiePark = {
     latitude: 30.610393413384177, 
     longitude: -96.33763575863327,
     track : 'https://sample-music.netlify.app/Bad%20Liar.mp3',
-    description: 'Welcome to AggiePark!'
+    description: 'Welcome to AggiePark!',
+    image: require('../images/sterlingCEvansLibrary.jpg')
 }
 
 const KyleField = {
@@ -43,7 +48,8 @@ const KyleField = {
     latitude: 30.610185221118854, 
     longitude: -96.34010346175411,
     track : 'https://sample-music.netlify.app/Bad%20Liar.mp3',
-    description: 'Welcome to KyleField!'
+    description: 'Welcome to KyleField!',
+    image: require('../images/sterlingCEvansLibrary.jpg')
 }
 
 const MemorialStudentCenter = {
@@ -51,7 +57,8 @@ const MemorialStudentCenter = {
     latitude: 30.61230065086328, 
     longitude: -96.34152923209598,
     track : 'https://sample-music.netlify.app/Bad%20Liar.mp3',
-    description: 'Welcome to MemorialStudentCenter!'
+    description: 'Welcome to MemorialStudentCenter!',
+    image: require('../images/sterlingCEvansLibrary.jpg')
 }
 
 const SimpsonDrillField = {
@@ -59,7 +66,8 @@ const SimpsonDrillField = {
     latitude: 30.61358754281808, 
     longitude: -96.3428402171899,
     track : 'https://sample-music.netlify.app/Bad%20Liar.mp3',
-    description: 'Welcome to SimpsonDrillField!'
+    description: 'Welcome to SimpsonDrillField!',
+    image: require('../images/sterlingCEvansLibrary.jpg')
 }
 
 const ZachryBuilding = {
@@ -67,7 +75,8 @@ const ZachryBuilding = {
     latitude: 30.62129670181836,
     longitude:  -96.34036524442861,
     track : 'https://sample-music.netlify.app/Bad%20Liar.mp3',
-    description: 'Welcome to ZachryBuilding!'
+    description: 'Welcome to ZachryBuilding!',
+    image: require('../images/sterlingCEvansLibrary.jpg')
 }
 
 const HaynesEngineeringBuilding = {
@@ -75,7 +84,8 @@ const HaynesEngineeringBuilding = {
     latitude: 30.6198218441582,  
     longitude: -96.33889430585573,
     track : 'https://sample-music.netlify.app/Bad%20Liar.mp3',
-    description: 'Welcome to HaynesEngineeringBuilding!'
+    description: 'Welcome to HaynesEngineeringBuilding!',
+    image: require('../images/sterlingCEvansLibrary.jpg')
 }
 
 
@@ -84,7 +94,8 @@ const FoxRunBasketBallCourt = {
     latitude: 30.589825873177347, 
     longitude: -96.34303084039499,
     track : 'https://sample-music.netlify.app/Bad%20Liar.mp3',
-    description: 'Welcome to FoxRunBasketBallCourt!'
+    description: 'Welcome to FoxRunBasketBallCourt!',
+    image: require('../images/sterlingCEvansLibrary.jpg')
 }
 
 const London2311 = {
@@ -92,7 +103,8 @@ const London2311 = {
     latitude: 30.590578606177363, 
     longitude: -96.34264845876957,
     track : 'https://sample-music.netlify.app/Bad%20Liar.mp3',
-    description: 'Welcome to London2311!'
+    description: 'Welcome to London2311!',
+    image: require('../images/sterlingCEvansLibrary.jpg')
 }
 
 const locations = [SterlingCEvansLibrary,

@@ -1,25 +1,101 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import {connect} from 'react-redux';
 import { setContentType } from '../../../context/actions/bottomSheetActions';
 import { setPlace } from '../../../context/actions/mapActions';
 import {BOTTOM_SHEET_PLACE_DETAIL } from '../../../context/constants';
+import {SterlingCEvansLibrary,
+  BrightBuilding,
+  CenturyTree,
+  RudderComplex,
+  AggiePark,
+  KyleField,
+  MemorialStudentCenter,
+  SimpsonDrillField,
+  ZachryBuilding,
+  HaynesEngineeringBuilding
+} from '../../../constants/map/places.js'
 
-const TourPreviewContent = ({route, setContentType, setPlace }) => {
+const TourPreviewContent = ({route, setContentType, place, setPlace, currentLocation }) => {
 
-  const handleLinkClick = (place:any) => {
-      // console.log(`Setting ${place.description}`);
-      // setPlace({place});
-      // setContentType({
-      //     contentType: BOTTOM_SHEET_PLACE_DETAIL
-      // });
-      
+  const [startButtonClicked, setStartButtonClicked] = useState(false);
+
+  // const current_location1: { lat: number; lon: number } = { lat: 30.613412596419227, lon: -96.33994268357311 };
+  const current_location1: { lat: number; lon: number } = {
+    lat: currentLocation.latitude,
+    lon: currentLocation.longitude
+  };
+  console.log("Calculating...", current_location1);
+
+  const places = {
+    SterlingCEvansLibrary,
+    BrightBuilding,
+    CenturyTree,
+    RudderComplex,
+    AggiePark,
+    KyleField,
+    MemorialStudentCenter,
+    SimpsonDrillField,
+    ZachryBuilding,
+    HaynesEngineeringBuilding
+  };
+
+  // Function to calculate distance between two points
+  const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+    const R = 6371; // Radius of the earth in km
+    const dLat = deg2rad(lat2 - lat1); // deg2rad below
+    const dLon = deg2rad(lon2 - lon1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const d = R * c; // Distance in km
+    return d;
+  };
+
+  const deg2rad = (deg: number) => {
+    return deg * (Math.PI / 180);
+  };
+
+  // Function to find the closest place within 50 meters
+  const findClosestPlace = () => {
+    console.log("Calculating closest place...");
+    let closestPlace = null;
+    let minDistance = Infinity;
+
+    Object.keys(places).forEach((key) => {
+      const place1 = places[key];
+      const distance = calculateDistance(current_location1.lat, current_location1.lon, place1.latitude, place1.longitude);
+      if (distance < minDistance && distance <= 5) { // 0.005 km = 5 meters
+        closestPlace = place1;
+        minDistance = distance;
+      }
+    });
+    // console.log("... distance from closest place is ", minDistance);
+    // console.log("...closest place is ", closestPlace.name);
+    return closestPlace;
+  };
+  
+  place = findClosestPlace();
+
+  useEffect(() => {
+    if (startButtonClicked && route) {
+      console.log("Closest place:", place.name);
+      setPlace({place});
+      console.log("Place set to:", place.name);
+    }
+  }, [startButtonClicked, route, place, setPlace, setContentType]);
+
+  const handleStartButtonClick = () => {
+    setContentType({ contentType: BOTTOM_SHEET_PLACE_DETAIL });
+    setStartButtonClicked(true);
   };
 
   return (
     <View style={styles.container}>
         <View style={styles.buttonsContainer}>
-            <TouchableOpacity style={styles.startButton}>
+            <TouchableOpacity style={styles.startButton}  onPress={handleStartButtonClick}>
                 <Text style={styles.startButtonText}>Start</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.tourPreviewButton}>
@@ -33,9 +109,7 @@ const TourPreviewContent = ({route, setContentType, setPlace }) => {
       </View>
       <ScrollView style={styles.routeSteps}>
         {route.route.map((place, index) => (
-          <TouchableOpacity key={place.name} style={styles.step} onPress={() => handleLinkClick(place)}>
-            <Text style={styles.stepText}>{index + 1}. {place.name}</Text>
-          </TouchableOpacity>
+          <Text style={styles.stepText}>{index + 1}. {place.name}</Text>
         ))}
       </ScrollView>
     </View>
@@ -44,7 +118,8 @@ const TourPreviewContent = ({route, setContentType, setPlace }) => {
 
 const mapStateToProps = (state)=>{
     return {
-        route: state.map.routeObj
+        route: state.map.routeObj,
+        currentLocation: state.map.currentLocation
     }   
   }
 
