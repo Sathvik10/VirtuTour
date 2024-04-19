@@ -5,8 +5,7 @@ const initialState = {
     currentLocation: {
         latitude: 30.5921396,
         longitude: -96.3414484,
-      },
-      currentPlace : null
+      }
 }
 
 const mapReducer = (state = initialState, action) =>{
@@ -34,12 +33,6 @@ const mapReducer = (state = initialState, action) =>{
             return {
                 ...state,
                 currentLocation: action.currentLocation
-            }
-        case 'SET_CURRENT_PLACE':
-            console.log("Action Type: "+action.type, " wayPoints: "+ action.currentPlace)
-            return {
-                ...state,
-                currentPlace : action.currentPlace
             }
         default:
             return state;

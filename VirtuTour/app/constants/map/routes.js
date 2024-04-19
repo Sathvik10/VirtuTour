@@ -7,9 +7,7 @@ import {SterlingCEvansLibrary,
     MemorialStudentCenter,
     SimpsonDrillField,
     ZachryBuilding,
-    HaynesEngineeringBuilding,
-    FoxRunBasketBallCourt,
-    London2311
+    HaynesEngineeringBuilding
 } from "./places.js"
 
 const route1 = {
@@ -48,14 +46,4 @@ const route4 = {
                 colorIndicator: 'green'
 };
 
-const route5 = {
-        source: London2311,
-        destination: ZachryBuilding,
-        route: [ London2311, FoxRunBasketBallCourt, KyleField, AggiePark,
-                MemorialStudentCenter ,CenturyTree,
-                RudderComplex,HaynesEngineeringBuilding, BrightBuilding, 
-                        ZachryBuilding ],
-        colorIndicator: 'green'
-};
-
-export default [route1, route2, route3, route4, route5];
+export default [route1, route2, route3, route4];

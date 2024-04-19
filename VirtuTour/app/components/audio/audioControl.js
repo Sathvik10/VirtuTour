@@ -10,13 +10,6 @@ const AudioControls = () => {
         }
     }
 
-    const setPosition= async (source, position) => {
-        if(source)
-        {
-            await source.setPositionAsync(position)
-        }
-    }
-
 
     const handleAudioState = async (source, playState) => {
         if(playState)
@@ -50,20 +43,11 @@ const AudioControls = () => {
         return sound
     }
 
-    const getSoundSourceFromLocalSource = async (sourceUrl, volume = 1 , options = {} ,shouldPlay=true) => {
-        const {sound } = await Audio.Sound.createAsync(sourceUrl, {
-            shouldPlay: shouldPlay,
-            volume:volume,
-            ...options
-        })
-        return sound
-    }
     const pauseAudio = async (source) => {
         const status = await getStatus(source)
 
         if(status.isPlaying)
         {
-            console.log("Pausing")
             await source.pauseAsync()
         }
     }
@@ -101,9 +85,7 @@ const AudioControls = () => {
         pauseAudio,
         setVolume,
         handleAudioState,
-        getStatus,
-        getSoundSourceFromLocalSource,
-        setPosition
+        getStatus
     };
 }
 

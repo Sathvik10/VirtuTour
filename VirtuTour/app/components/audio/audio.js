@@ -1,5 +1,4 @@
 import { Audio } from 'expo-av';
-import { Asset } from 'expo-asset';
 import { useEffect, useState, useRef } from 'react';
 import { View, StyleSheet,Button } from 'react-native';
 import {locations} from '../../constants/map/places'
@@ -17,50 +16,20 @@ const {
     pauseAudio,
     setVolume,
     handleAudioState,
-    getStatus,
-    getSoundSourceFromLocalSource,
-    setPosition
+    getStatus
 } = AudioControls()
 
-const Narration = ({currentLocation, currentPlace, setCurrentPlace}) => {
+const Narration = ({currentLocation}) => {
 
     const [currentMode, setCurrentMode] = useState(false)
     // const [soundMap, setSoundMap] = useState({});
     // const soundMap = useRef({})
     const [trackMap, setTrackMap] = useState({}) 
-    const [justFinished, setJustFinished] = useState(false)
     const trackProgress = useRef({})
 
     function onPress(){
         console.log("Setting mode to Play: " + !currentMode)
         setCurrentMode(!currentMode)
-    }
-
-    async function replayTrack()
-    {
-        if(Object.keys(trackMap).length == 0)
-            return;
-
-        let currentTrack = undefined
-        let currentStatus = undefined
-
-        for(trackId in trackMap)
-        {
-            console.log("track", trackId)
-            const status = await getStatus(trackMap[trackId])
-            console.log(status)
-            const didJustFinish = status.durationMillis === status.positionMillis
-
-            if (didJustFinish)
-            {
-                currentTrack = trackMap[trackId]
-                currentStatus = status
-                break
-            }
-        }
-        if(currentTrack === undefined)
-            return;
-        await setPosition(currentTrack, 0)
     }
 
     function unloadCurrentAudio() {
@@ -96,6 +65,8 @@ const Narration = ({currentLocation, currentPlace, setCurrentPlace}) => {
     const updateExistingTrack = async (audioSource, updatedInfo) => {
         
         console.log("Updating existing audio")
+        console.log(updatedInfo)
+
         if (updatedInfo.volume <= 0)
         {
             await saveProgress(audioSource, updatedInfo.trackId)
@@ -111,43 +82,8 @@ const Narration = ({currentLocation, currentPlace, setCurrentPlace}) => {
             }
         }
 
-        const status = await getStatus(audioSource)
-        const didJustFinish = status.durationMillis === status.positionMillis
-
-        if (didJustFinish !== justFinished)
-        {
-            setJustFinished(didJustFinish)
-        }
-
         await handleAudioState(audioSource, updatedInfo.playState)
 
-    }
-
-    function updateReduxCurrentPlace (tracks){
-        if(tracks.length == 0)
-        {
-            if(currentPlace !== null)
-            {
-                setCurrentPlace(null)
-            }
-            return
-        }
-        
-        const firstTrack = tracks[0]
-        if(firstTrack.trackId === "Background Music")
-        {
-            return;
-        }
-
-        if(currentPlace == null)
-        {
-            setCurrentPlace(firstTrack)
-        }else{
-            if(currentPlace.trackId !== firstTrack.trackId)
-            {
-                setCurrentPlace(firstTrack)
-            }
-        }
     }
 
     const mapAudioToLocation = async (currentLocation) =>
@@ -156,7 +92,7 @@ const Narration = ({currentLocation, currentPlace, setCurrentPlace}) => {
             return
 
         tracks = AudioLocationService(currentLocation, locations);
-        updateReduxCurrentPlace(tracks)
+
         let isUpdated = false
         //updatedSoundMap = {...soundMap.current}
         updatedSoundMap = {...trackMap}
@@ -206,12 +142,7 @@ const Narration = ({currentLocation, currentPlace, setCurrentPlace}) => {
 
                 isUpdated = true;
                 newlyAddedTracks.push(track.trackId)
-                let createSoundSource = getSoundSource;
-                if(track.track instanceof Asset)
-                {
-                    createSoundSource = getSoundSourceFromLocalSource;
-                }
-                const sound = await createSoundSource(track.track, track.volume, options);
+                const sound = await getSoundSource(track.track, track.volume, options);
                 updatedSoundMap[track.trackId] = sound
             }
         }
@@ -253,11 +184,6 @@ const Narration = ({currentLocation, currentPlace, setCurrentPlace}) => {
 
     return (
         <View style={styles.container}>
-            {
-                currentMode && justFinished ? 
-                <Icon name={"replay"} raised type='material'onPress={replayTrack}/>
-                : <></>
-            }
             <Icon name={currentMode? "pause" : "play-arrow"} raised type='material'onPress={onPress}/>
             {/* <Button title={"Lat: " + currentLocation.latitude + " Long: " + currentLocation.longitude}  />
             <Button title={" " + getDistance( currentLocation, locations[4])} /> */}
@@ -278,13 +204,5 @@ const styles = StyleSheet.create({
     },
   });
 
-const mapStateToProps = (state)=>{
-return {
-    currentPlace: state.map.currentPlace,
-}   
-}
-const mapDispatchToProps = {
-    setCurrentPlace
-};
 
-export default connect(mapStateToProps,mapDispatchToProps)(Narration);
+export default Narration;
