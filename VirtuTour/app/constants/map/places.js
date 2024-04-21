@@ -22,7 +22,7 @@ const AcademicBuild = {
     name: "AcademicBuilding",
     latitude: 30.615782490095075, 
     longitude: -96.34080482904672,
-    image: require('../images/AcademicBuild.jpg'),
+    image: require('../images/AcademBuild.jpg'),
     track : Asset.fromModule(require('../../constants/audio/AcademicBuilding.mp3')),
     description: "The Academic Building at Texas A&M University is a significant structure with a rich architectural design that reflects the university's historical and cultural heritage. Designed by campus architect Frederick E. Giesecke and Samuel E. Gideon, the building was constructed in 1914 after the original Old Main building was destroyed by fire in 1912. The building showcases a Beaux-Arts classical design, which was a popular architectural style in the United States during the late 19th and early 20th centuries, characterized by grandiose and elaborate detailing. The Academic Building's history is intertwined with the evolution of Texas A&M University. It stands on the site of the former Old Main building, which was an integral part of the university before it was consumed by fire. The Academic Building has been a central part of Texas A&M's history for over a century and is one of only seven buildings on campus that are more than 100 years old. It has witnessed numerous significant events and traditions, including Silver Taps, a solemn ceremony honoring deceased students, which is held outside the building."
 }
