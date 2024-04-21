@@ -42,6 +42,61 @@ export const BonFireMemorilImages = [
     require('../images/BonfireMemorial3.jpg'),
     require('../images/BonfireMemorial4.jpg'),
 ];
+export const AggieSpiritImages = [
+    require('../images/AggieSpirit1.jpg'),
+    require('../images/AggieSpirit2.jpg'),
+    require('../images/AggieSpirit3.jpg'),
+];
+export const AcademicBuidingImages = [
+    require('../images/AcademicBuilding1.jpg'),
+    require('../images/AcademicBuilding2.jpg'),
+    require('../images/AcademicBuilding3.jpg')
+];
+export const StudentRecImages = [
+    require('../images/StudentRec1.jpg'),
+    require('../images/StudentRec2.jpg'),
+    require('../images/StudentRec3.jpg'),
+];
+export const CushingLibraryImages = [
+    require('../images/CushingLibrary1.jpg'),
+    require('../images/CushingLibrary2.jpg'),
+    require('../images/CushingLibrary3.jpg'),
+];
+export const LawrenceRossImages = [
+    require('../images/LawrenceRoss1.jpg'),
+    require('../images/LawrenceRoss2.jpg'),
+    require('../images/LawrenceRoss3.jpg'),
+];
+export const ReedArenaImages = [
+    require('../images/ReedArena1.jpg'),
+    require('../images/ReedArena2.jpg'),
+    require('../images/ReedArena3.jpg'),
+];
+export const TAMUHotelImages = [
+    require('../images/TAMUHotel1.jpg'),
+    require('../images/TAMUHotel2.jpg'),
+    require('../images/TAMUHotel3.jpg'),
+];
+export const CorpOfCadetsImages = [
+    require('../images/CorpOfCadets1.jpg'),
+    require('../images/CorpOfCadets2.jpg'),
+    require('../images/CorpOfCadets3.jpg'),
+];
+export const CommonsImages = [
+    require('../images/Commons1.jpg'),
+    require('../images/Commons2.jpg'),
+    require('../images/Commons3.jpg'),
+];
+export const CenturySquareImages = [
+    require('../images/CenturySquare1.jpg'),
+    require('../images/CenturySquare2.jpg'),
+    require('../images/CenturySquare3.jpg'),
+];
+export const RingStatueImages = [
+    require('../images/RingStatue1.jpg'),
+    require('../images/RingStatue2.jpg'),
+    require('../images/RingStatue3.jpg'),
+];
 
 export const MSCImages = [
     require('../images/MSC1.jpg'),
